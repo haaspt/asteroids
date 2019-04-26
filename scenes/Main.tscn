@@ -18,4 +18,5 @@ position = Vector2( 160, 90 )
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
 [connection signal="did_shoot" from="Player" to="." method="_on_Player_did_shoot"]
+[connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]

@@ -51,6 +51,13 @@ texture={
 "svg/scale": 1.0
 }
 
+[layer_names]
+
+2d_render/layer_1="player"
+2d_render/layer_2="bullet"
+2d_render/layer_3="asteroids"
+
 [rendering]
 
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"
