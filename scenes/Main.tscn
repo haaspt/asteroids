@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Bullet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/MainMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/MainMenu.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -13,19 +12,18 @@ _data = {
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
-Bullet = ExtResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="Player" parent="." instance=ExtResource( 2 )]
 visible = false
 gravity_vec = Vector2( 0, 0 )
 
 [node name="PlayerStartPosition" type="Position2D" parent="."]
 position = Vector2( 160, 90 )
 
-[node name="HUD" parent="." instance=ExtResource( 4 )]
+[node name="HUD" parent="." instance=ExtResource( 3 )]
 pause_mode = 2
 
-[node name="MainMenu" parent="." instance=ExtResource( 5 )]
+[node name="MainMenu" parent="." instance=ExtResource( 4 )]
 pause_mode = 2
 
 [node name="AsteroidPath" type="Path2D" parent="."]

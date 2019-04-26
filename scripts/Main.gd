@@ -1,6 +1,7 @@
 extends Node2D
 
-export (PackedScene) var Bullet
+var Bullet = preload("res://scenes/Bullet.tscn")
+var Asteroid = preload("res://scenes/Asteroid.tscn")
 
 var score
 var game_started
@@ -54,7 +55,7 @@ func _on_SpawnTimer_timeout():
 	var direction = $AsteroidPath/AsteroidSpawnLocation.rotation + PI / 2
 	direction += rand_range(-PI / 4, PI / 4)
 	
-	var asteroid = preload("res://scenes/Asteroid.tscn").instance()
+	var asteroid = Asteroid.instance()
 	add_child(asteroid)
 	asteroid.start(asteroid_position, direction)
 	asteroid.connect("destroyed", self, "_on_Asteroid_destroyed")
