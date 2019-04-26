@@ -50,7 +50,6 @@ func _process(delta):
 	position.y = wrapf(position.y, -screen_buffer, screen_size.y + screen_buffer)
 	
 
-func _on_Player_body_entered(body):
+func _on_Player_area_entered(area):
 	hide()
 	emit_signal("hit")
-	$CollisionShape2D.call_deferred("set_disabled", true)

@@ -30,5 +30,10 @@ func _on_SpawnTimer_timeout():
 	var asteroid = preload("res://scenes/Asteroid.tscn").instance()
 	add_child(asteroid)
 	asteroid.start(asteroid_position, direction)
+	asteroid.connect("destroyed", self, "_on_Asteroid_destroyed")
+	
+func _on_Asteroid_destroyed():
+	score += 1
+	$HUD.update_score(score)
 	
 
