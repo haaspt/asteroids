@@ -3,17 +3,44 @@ extends Node2D
 export (PackedScene) var Bullet
 
 var score
+var game_started
+var game_is_paused
 
 func _ready():
 	randomize()
+	game_started = false
+	game_is_paused = false
 
 func new_game():
+	get_tree().call_group("spawnable", "queue_free")
+	resume_game()
 	score = 0
 	$HUD.update_score(score)
 	$Player.start($PlayerStartPosition.position)
+	game_started = true
 	
 func game_over():
 	$HUD.display_game_over()
+	game_is_paused = true
+	game_started = false
+	get_tree().paused = true
+	
+func pause_game():
+	game_is_paused = true
+	get_tree().paused = game_is_paused
+	$MainMenu/MainMenuPanel.visible = game_is_paused
+	
+func resume_game():
+	game_is_paused = false
+	get_tree().paused = game_is_paused
+	$MainMenu/MainMenuPanel.visible = game_is_paused
+	
+func _process(delta):
+	if Input.is_action_pressed("ui_cancel") and game_started:
+		if game_is_paused:
+			resume_game()
+		else:
+			pause_game()
 
 func _on_Player_did_shoot(pos, rot):
 	var bullet = Bullet.instance()

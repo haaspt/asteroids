@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Bullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/MainMenu.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -22,17 +23,24 @@ gravity_vec = Vector2( 0, 0 )
 position = Vector2( 160, 90 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
+pause_mode = 2
+
+[node name="MainMenu" parent="." instance=ExtResource( 5 )]
+pause_mode = 2
+
+[node name="AsteroidPath" type="Path2D" parent="."]
+editor/display_folded = true
+curve = SubResource( 1 )
+
+[node name="AsteroidSpawnLocation" type="PathFollow2D" parent="AsteroidPath"]
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
 
-[node name="AsteroidPath" type="Path2D" parent="."]
-curve = SubResource( 1 )
-
-[node name="AsteroidSpawnLocation" type="PathFollow2D" parent="AsteroidPath"]
-
 [connection signal="did_shoot" from="Player" to="." method="_on_Player_did_shoot"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="restart" from="MainMenu" to="." method="new_game"]
+[connection signal="resume" from="MainMenu" to="." method="resume_game"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
