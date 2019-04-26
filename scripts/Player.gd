@@ -41,7 +41,7 @@ func _process(delta):
 	if Input.is_action_pressed("ui_accept"):
 		if $GunCooldownTimer.time_left == 0:
 			emit_signal("did_shoot", position, rotation)
-			$GunCooldownTimer.start(1)
+			$GunCooldownTimer.start()
 		
 	position += motion * move_speed * delta
 	
