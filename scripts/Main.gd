@@ -4,6 +4,9 @@ export (PackedScene) var Bullet
 
 var score
 
+func _ready():
+	randomize()
+
 func new_game():
 	score = 0
 	$HUD.update_score(score)
@@ -17,3 +20,15 @@ func _on_Player_did_shoot(pos, rot):
 	add_child(bullet)
 	bullet.start(pos, rot)
 	bullet.show()
+
+func _on_SpawnTimer_timeout():
+	$AsteroidPath/AsteroidSpawnLocation.set_offset(randi())
+	var asteroid_position = $AsteroidPath/AsteroidSpawnLocation.position
+	var direction = $AsteroidPath/AsteroidSpawnLocation.rotation + PI / 2
+	direction += rand_range(-PI / 4, PI / 4)
+	
+	var asteroid = preload("res://scenes/Asteroid.tscn").instance()
+	add_child(asteroid)
+	asteroid.start(asteroid_position, direction)
+	
+
