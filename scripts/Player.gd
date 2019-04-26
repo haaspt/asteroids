@@ -20,6 +20,7 @@ func _ready():
 	
 func start(pos):
 	position = pos
+	motion = Vector2(0, 0)
 	show()
 	$CollisionShape2D.disabled = false
 
