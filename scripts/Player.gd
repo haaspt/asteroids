@@ -16,6 +16,11 @@ var screen_buffer = 8
 func _ready():
 	screen_size = get_viewport_rect().size
 	hide()
+	
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
 
 func _process(delta):
 	if Input.is_action_pressed("ui_left"):
