@@ -1,7 +1,7 @@
 extends Node2D
 
-var Bullet = preload("res://scenes/Bullet.tscn")
-var Asteroid = preload("res://scenes/Asteroid.tscn")
+const Bullet = preload("res://scenes/Bullet.tscn")
+const Asteroid = preload("res://scenes/Asteroid.tscn")
 
 var score
 var game_started
@@ -38,10 +38,7 @@ func resume_game():
 	
 func _process(delta):
 	if Input.is_action_pressed("ui_cancel") and game_started:
-		if game_is_paused:
-			resume_game()
-		else:
-			pause_game()
+		pause_game()
 
 func _on_Player_did_shoot(pos, rot):
 	var bullet = Bullet.instance()
