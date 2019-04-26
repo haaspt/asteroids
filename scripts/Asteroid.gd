@@ -6,8 +6,8 @@ export (int) var min_rotation = 180
 export (int) var max_rotation = 200
 export (float) var rotation_speed = 1.0
 export (int) var speed = 100
+
 var screen_size
-var velocity = Vector2(100, 0)
 var screen_buffer = 8
 
 var motion = Vector2(1, 0)
