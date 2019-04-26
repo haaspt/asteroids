@@ -1,6 +1,7 @@
 extends Area2D
 
 signal hit
+signal did_shoot
 
 export (int) var turn_speed = 180
 export (int) var move_speed = 150
@@ -36,6 +37,11 @@ func _process(delta):
 	else:
 		motion = motion.linear_interpolate(Vector2(0,0), DEC)
 		$Sprite.frame = 0
+		
+	if Input.is_action_pressed("ui_accept"):
+		if $GunCooldownTimer.time_left == 0:
+			emit_signal("did_shoot", position, rotation)
+			$GunCooldownTimer.start(1)
 		
 	position += motion * move_speed * delta
 	
