@@ -26,4 +26,7 @@ wait_time = 0.25
 one_shot = true
 autostart = true
 
+[node name="GunbarrelLocation" type="Position2D" parent="."]
+position = Vector2( 8, 0 )
+
 [connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
