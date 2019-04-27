@@ -31,7 +31,7 @@ func _process(delta):
 	position.y = wrapf(position.y, -screen_buffer, screen_size.y + screen_buffer)
 
 func _on_Asteroid_body_entered(body):
-	if body.get_name() == "Bullet":
+	if body.is_in_group("bullet"):
 		body.queue_free()
 		queue_free()
 		emit_signal("destroyed")
