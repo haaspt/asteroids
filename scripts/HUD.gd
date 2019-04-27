@@ -5,10 +5,10 @@ signal start_game
 func _ready():
 	$MessageLabel.hide()
 
-func update_score(score):
+func update_score(score: int):
 	$ScoreLabel.text = str(score)
 	
-func show_message(text):
+func show_message(text: String):
 	$MessageLabel.text = text
 	$MessageLabel.show()
 	$MessageTimer.start()

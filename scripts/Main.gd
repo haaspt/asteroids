@@ -3,9 +3,9 @@ extends Node2D
 const Bullet = preload("res://scenes/Bullet.tscn")
 const Asteroid = preload("res://scenes/Asteroid.tscn")
 
-var score
-var game_started
-var game_is_paused
+var score: int
+var game_started: bool
+var game_is_paused: bool
 
 func _ready():
 	randomize()
@@ -36,11 +36,11 @@ func resume_game():
 	get_tree().paused = game_is_paused
 	$MainMenu/MainMenuPanel.visible = game_is_paused
 	
-func _process(delta):
+func _process(delta: float):
 	if Input.is_action_pressed("ui_cancel") and game_started:
 		pause_game()
 
-func _on_Player_did_shoot(pos, rot):
+func _on_Player_did_shoot(pos: Vector2, rot: float):
 	var bullet = Bullet.instance()
 	add_child(bullet)
 	bullet.start(pos, rot)

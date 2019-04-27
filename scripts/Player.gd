@@ -1,7 +1,7 @@
 extends Area2D
 
 signal hit
-signal did_shoot
+signal did_shoot(pos, rot)
 
 export (int) var turn_speed = 180
 export (int) var move_speed = 150
@@ -18,19 +18,19 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	hide()
 	
-func start(pos):
+func start(pos: Vector2):
 	position = pos
 	motion = Vector2(0, 0)
 	show()
 	$CollisionShape2D.disabled = false
 
-func _process(delta):
+func _process(delta: float):
 	if Input.is_action_pressed("ui_left"):
 		rotation_degrees -= turn_speed * delta
 	if Input.is_action_pressed("ui_right"):
 		rotation_degrees += turn_speed * delta
 		
-	var movedir = Vector2(1,0).rotated(rotation)
+	var movedir := Vector2(1,0).rotated(rotation)
 	
 	if Input.is_action_pressed("ui_up"):
 		motion = motion.linear_interpolate(movedir, ACC)
@@ -51,6 +51,6 @@ func _process(delta):
 	position.y = wrapf(position.y, -screen_buffer, screen_size.y + screen_buffer)
 	
 
-func _on_Player_area_entered(area):
+func _on_Player_area_entered(area: Node):
 	hide()
 	emit_signal("hit")
