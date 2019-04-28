@@ -21,6 +21,7 @@ func new_game():
 	game_started = true
 	
 func game_over():
+	$sfx/PlayerExplosionStream.play()
 	$HUD.display_game_over()
 	game_is_paused = true
 	game_started = false
@@ -59,6 +60,7 @@ func _on_SpawnTimer_timeout():
 	
 func _on_Asteroid_destroyed():
 	score += 1
+	$sfx/AsteroidExplosionStream.play()
 	$HUD.update_score(score)
 	
 

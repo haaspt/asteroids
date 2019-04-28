@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/MainMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://sounds/explosion_1.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/explosion_2.wav" type="AudioStream" id=6]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -35,6 +37,15 @@ curve = SubResource( 1 )
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="sfx" type="Node" parent="."]
+pause_mode = 2
+
+[node name="AsteroidExplosionStream" type="AudioStreamPlayer2D" parent="sfx"]
+stream = ExtResource( 5 )
+
+[node name="PlayerExplosionStream" type="AudioStreamPlayer2D" parent="sfx"]
+stream = ExtResource( 6 )
 
 [connection signal="did_shoot" from="Player" to="." method="_on_Player_did_shoot"]
 [connection signal="hit" from="Player" to="." method="game_over"]
