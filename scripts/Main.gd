@@ -36,6 +36,9 @@ func resume_game():
 	game_is_paused = false
 	get_tree().paused = game_is_paused
 	$MainMenu/MainMenuPanel.visible = game_is_paused
+
+func exit_game():
+	get_tree().quit()
 	
 func _process(delta: float):
 	if Input.is_action_pressed("ui_cancel") and game_started:

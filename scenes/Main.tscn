@@ -50,6 +50,7 @@ stream = ExtResource( 6 )
 [connection signal="did_shoot" from="Player" to="." method="_on_Player_did_shoot"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="exit" from="MainMenu" to="." method="exit_game"]
 [connection signal="restart" from="MainMenu" to="." method="new_game"]
 [connection signal="resume" from="MainMenu" to="." method="resume_game"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

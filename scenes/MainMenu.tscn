@@ -23,44 +23,60 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -45.5
-margin_top = -57.5
+margin_top = -59.0
 margin_right = 45.5
-margin_bottom = 57.5
+margin_bottom = 59.0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="MenuRestart" type="Button" parent="MainMenuPanel"]
+anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 10.0
-margin_top = -30.0
+margin_left = -81.0
+margin_top = -32.0
 margin_right = -7.0
-margin_bottom = -6.0
+margin_bottom = -8.0
 custom_fonts/font = SubResource( 1 )
 text = "Restart"
 
 [node name="MenuResume" type="Button" parent="MainMenuPanel"]
+anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = 30.0
+margin_left = -81.0
+margin_top = -1.0
+margin_right = -7.0
+margin_bottom = 23.0
 custom_fonts/font = SubResource( 2 )
 text = "Resume"
+
+[node name="MenuQuit" type="Button" parent="MainMenuPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -35.5
+margin_top = 29.0
+margin_right = 38.5
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 2 )
+text = "Exit"
 
 [node name="Label" type="Label" parent="MainMenuPanel"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -20.0
+anchor_bottom = 1.0
+margin_left = -23.0
 margin_top = 5.0
-margin_right = 20.0
-margin_bottom = 14.0
+margin_right = 23.0
+margin_bottom = -98.0
 custom_fonts/font = SubResource( 3 )
 text = "Menu"
 
 [connection signal="pressed" from="MainMenuPanel/MenuRestart" to="." method="_on_MenuRestart_pressed"]
 [connection signal="pressed" from="MainMenuPanel/MenuResume" to="." method="_on_MenuResume_pressed"]
+[connection signal="pressed" from="MainMenuPanel/MenuQuit" to="." method="_on_MenuQuit_pressed"]
