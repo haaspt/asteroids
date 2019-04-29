@@ -16,12 +16,12 @@ var screen_buffer = 8
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	hide()
+	$Sprite.hide()
 	
 func start(pos: Vector2):
 	position = pos
 	motion = Vector2(0, 0)
-	show()
+	$Sprite.show()
 	$CollisionShape2D.disabled = false
 
 func _process(delta: float):
@@ -52,5 +52,5 @@ func _process(delta: float):
 	
 
 func _on_Player_area_entered(area: Node):
-	hide()
+	$Sprite.hide()
 	emit_signal("hit")

@@ -1,6 +1,6 @@
 extends Area2D
 
-signal destroyed
+signal destroyed(location)
 
 export (int) var min_rotation = 180
 export (int) var max_rotation = 200
@@ -34,4 +34,4 @@ func _on_Asteroid_body_entered(body: Node):
 	if body.is_in_group("bullet"):
 		body.queue_free()
 		queue_free()
-		emit_signal("destroyed")
+		emit_signal("destroyed", position)

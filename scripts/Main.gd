@@ -2,6 +2,7 @@ extends Node2D
 
 const Bullet = preload("res://scenes/Bullet.tscn")
 const Asteroid = preload("res://scenes/Asteroid.tscn")
+const Explosion = preload("res://scenes/Explosion.tscn")
 
 var score: int
 var game_started: bool
@@ -22,6 +23,7 @@ func new_game():
 	
 func game_over():
 	$sfx/PlayerExplosionStream.play()
+	_spawn_explosion($Player.global_position)
 	$HUD.display_game_over()
 	game_is_paused = true
 	game_started = false
@@ -43,6 +45,12 @@ func exit_game():
 func _process(delta: float):
 	if Input.is_action_pressed("ui_cancel") and game_started:
 		pause_game()
+		
+func _spawn_explosion(location: Vector2) -> Particles2D:
+	var explosion = Explosion.instance()
+	add_child(explosion)
+	explosion.spawn(location)
+	return explosion
 
 func _on_Player_did_shoot(pos: Vector2, rot: float):
 	var bullet = Bullet.instance()
@@ -61,8 +69,9 @@ func _on_SpawnTimer_timeout():
 	asteroid.start(asteroid_position, direction)
 	asteroid.connect("destroyed", self, "_on_Asteroid_destroyed")
 	
-func _on_Asteroid_destroyed():
+func _on_Asteroid_destroyed(location: Vector2):
 	score += 1
+	_spawn_explosion(location)
 	$sfx/AsteroidExplosionStream.play()
 	$HUD.update_score(score)
 	

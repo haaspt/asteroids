@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/Explosion.gd" type="Script" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.5
+angular_velocity = 11.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[node name="DestructionParticles" type="Particles2D"]
+pause_mode = 2
+amount = 20
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource( 1 )
+script = ExtResource( 1 )
+
