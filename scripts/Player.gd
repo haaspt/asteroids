@@ -11,11 +11,10 @@ const DEC = 0.01
 
 var motion = Vector2(0,0)
 
-var screen_size: Vector2
-var screen_buffer = 8
+onready var screen_size = get_viewport_rect().size
+const screen_buffer = 8
 
 func _ready():
-	screen_size = get_viewport_rect().size
 	$Sprite.hide()
 	
 func start(pos: Vector2):

@@ -1,8 +1,28 @@
 extends Node2D
 
 const Bullet = preload("res://scenes/Bullet.tscn")
-const Asteroid = preload("res://scenes/Asteroid.tscn")
+const AsteroidBig = preload("res://scenes/AsteroidBig.tscn")
+const AsteroidMedium = preload("res://scenes/AsteroidMedium.tscn")
+const AsteroidSmall = preload("res://scenes/AsteroidSmall.tscn")
 const Explosion = preload("res://scenes/Explosion.tscn")
+
+var asteroid_type_lookup = {
+	"big": {
+		"entity": AsteroidBig,
+		"score_value": 1,
+		"number_spawned": 1,
+		"child_type": "medium"},
+	"medium": {
+		"entity": AsteroidMedium,
+		"score_value": 2,
+		"number_spawned": 2,
+		"child_type": "small"},
+	"small": {
+		"entity": AsteroidSmall,
+		"score_value": 4,
+		"number_spawned": 3,
+		"child_type": null}
+	}
 
 var score: int
 var game_started: bool
@@ -52,6 +72,16 @@ func _spawn_explosion(location: Vector2) -> Particles2D:
 	add_child(explosion)
 	explosion.spawn(location)
 	return explosion
+	
+func _spawn_asteroids(type: String, location: Vector2, direction: float):
+	var n_to_spawn = asteroid_type_lookup[type]["number_spawned"]
+	var type_to_spawn = asteroid_type_lookup[type]["entity"]
+	for i in range(n_to_spawn):
+		var random_direction = rand_range(0, 2 * PI)
+		var new_asteroid = type_to_spawn.instance()
+		add_child(new_asteroid)
+		new_asteroid.start(location, random_direction)
+		new_asteroid.connect("destroyed", self, "_on_Asteroid_destroyed")
 
 func _on_Player_did_shoot(pos: Vector2, rot: float):
 	var bullet = Bullet.instance()
@@ -65,14 +95,17 @@ func _on_SpawnTimer_timeout():
 	var direction = $AsteroidPath/AsteroidSpawnLocation.rotation + PI / 2
 	direction += rand_range(-PI / 4, PI / 4)
 	
-	var asteroid = Asteroid.instance()
+	# Spawn large asteroid
+	var asteroid = AsteroidBig.instance()
 	add_child(asteroid)
 	asteroid.start(asteroid_position, direction)
 	asteroid.connect("destroyed", self, "_on_Asteroid_destroyed")
 	
-func _on_Asteroid_destroyed(location: Vector2):
-	score += 1
+func _on_Asteroid_destroyed(location: Vector2, direction: float, type: String):
+	score += asteroid_type_lookup[type]["score_value"]
 	_spawn_explosion(location)
+	if asteroid_type_lookup[type]["child_type"]:
+		_spawn_asteroids(asteroid_type_lookup[type]["child_type"], location, direction)
 	$sfx/AsteroidExplosionStream.play()
 	$HUD.update_score(score)
 	
