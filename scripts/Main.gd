@@ -105,7 +105,7 @@ func _on_Asteroid_destroyed(location: Vector2, direction: float, type: String):
 	score += asteroid_type_lookup[type]["score_value"]
 	_spawn_explosion(location)
 	if asteroid_type_lookup[type]["child_type"]:
-		_spawn_asteroids(asteroid_type_lookup[type]["child_type"], location, direction)
+		call_deferred("_spawn_asteroids", asteroid_type_lookup[type]["child_type"], location, direction)
 	$sfx/AsteroidExplosionStream.play()
 	$HUD.update_score(score)
 	
