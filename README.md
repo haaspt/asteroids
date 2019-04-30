@@ -1,7 +1,7 @@
+![Gameplay](https://github.com/haaspt/asteroids/blob/master/demo/gameplay.gif)
+
 ## Asteroids!
 *Asteroids!* is my attempt to create a clone of the classic Atari game *Asteroids* released in 1979. This project uses the Godot engine and is my first try at game development.
-
-![Gameplay](https://github.com/haaspt/asteroids/blob/master/demo/gameplay.gif)
 
 ### Build or Install
 You can import, edit, and build the game yourself with [Godot 3.1](https://godotengine.org/download). After cloning the repo select `Import` in Godot and select the `project.godot` file. You can then run the game inside the editor or export it as an executable for your desired platform.
