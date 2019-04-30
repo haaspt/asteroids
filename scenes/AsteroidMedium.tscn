@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Asteroid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/collisions/asteroid_med.tres" type="Shape2D" id=2]
+
+[node name="Asteroid" instance=ExtResource( 1 )]
+speed = 50
+type = "medium"
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 0.5, 0.5 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( 0.5, 0 )
+shape = ExtResource( 2 )
+

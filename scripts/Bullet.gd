@@ -2,11 +2,10 @@ extends KinematicBody2D
 
 export (int) var speed = 200
 var velocity: Vector2
-var screen_size: Vector2
-var screen_buffer = 8
+onready var screen_size = get_viewport_rect().size
+const screen_buffer = 8
 
 func _ready():
-	screen_size = get_viewport_rect().size
 	hide()
 
 func start(pos: Vector2, rot: float):

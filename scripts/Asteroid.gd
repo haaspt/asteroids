@@ -1,19 +1,19 @@
 extends Area2D
 
-signal destroyed(location)
+signal destroyed(location, direction, type)
 
 export (int) var min_rotation = 180
 export (int) var max_rotation = 200
 export (float) var rotation_speed = 1.0
 export (int) var speed = 100
+export (String) var type
 
-var screen_size: Vector2
-var screen_buffer = 8
+onready var screen_size = get_viewport_rect().size
+const screen_buffer = 8
 
 var motion = Vector2(1, 0)
 
 func _ready():
-	screen_size = get_viewport_rect().size
 	hide()
 	
 func start(pos: Vector2, dir: float):
@@ -34,4 +34,4 @@ func _on_Asteroid_body_entered(body: Node):
 	if body.is_in_group("bullet"):
 		body.queue_free()
 		queue_free()
-		emit_signal("destroyed", position)
+		emit_signal("destroyed", position, rotation, self.type)
