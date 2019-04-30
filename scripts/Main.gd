@@ -15,6 +15,7 @@ func _ready():
 
 func new_game():
 	get_tree().call_group("spawnable", "queue_free")
+	$SpawnTimer.start()
 	resume_game()
 	score = 0
 	$HUD.update_score(score)
