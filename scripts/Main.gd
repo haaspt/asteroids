@@ -74,14 +74,20 @@ func _spawn_explosion(location: Vector2) -> Particles2D:
 	return explosion
 	
 func _spawn_asteroids(type: String, location: Vector2, direction: float):
-	var n_to_spawn = asteroid_type_lookup[type]["number_spawned"]
-	var type_to_spawn = asteroid_type_lookup[type]["entity"]
-	for i in range(n_to_spawn):
-		var random_direction = rand_range(0, 2 * PI)
-		var new_asteroid = type_to_spawn.instance()
-		add_child(new_asteroid)
-		new_asteroid.start(location, random_direction)
-		new_asteroid.connect("destroyed", self, "_on_Asteroid_destroyed")
+	if type == "big":
+		var asteroid = AsteroidBig.instance()
+		add_child(asteroid)
+		asteroid.start(location, direction)
+		asteroid.connect("destroyed", self, "_on_Asteroid_destroyed")
+	else:
+		var n_to_spawn = asteroid_type_lookup[type]["number_spawned"]
+		var type_to_spawn = asteroid_type_lookup[type]["entity"]
+		for i in range(n_to_spawn):
+			var random_direction = rand_range(0, 2 * PI)
+			var new_asteroid = type_to_spawn.instance()
+			add_child(new_asteroid)
+			new_asteroid.start(location, random_direction)
+			new_asteroid.connect("destroyed", self, "_on_Asteroid_destroyed")
 
 func _on_Player_did_shoot(pos: Vector2, rot: float):
 	var bullet = Bullet.instance()
@@ -96,10 +102,7 @@ func _on_SpawnTimer_timeout():
 	direction += rand_range(-PI / 4, PI / 4)
 	
 	# Spawn large asteroid
-	var asteroid = AsteroidBig.instance()
-	add_child(asteroid)
-	asteroid.start(asteroid_position, direction)
-	asteroid.connect("destroyed", self, "_on_Asteroid_destroyed")
+	call_deferred("_spawn_asteroids", "big", asteroid_position, direction)
 	
 func _on_Asteroid_destroyed(location: Vector2, direction: float, type: String):
 	score += asteroid_type_lookup[type]["score_value"]
