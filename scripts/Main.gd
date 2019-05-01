@@ -87,7 +87,6 @@ func _on_Player_did_shoot(pos: Vector2, rot: float):
 	var bullet = Bullet.instance()
 	add_child(bullet)
 	bullet.start(pos, rot)
-	bullet.show()
 
 func _on_SpawnTimer_timeout():
 	$AsteroidPath/AsteroidSpawnLocation.set_offset(randi())
@@ -100,7 +99,7 @@ func _on_SpawnTimer_timeout():
 	
 func _on_Asteroid_destroyed(location: Vector2, direction: float, type: String):
 	score += asteroid_type_lookup[type]["score_value"]
-	_spawn_explosion(location)
+	call_deferred("_spawn_explosion", location)
 	if asteroid_type_lookup[type]["child_type"]:
 		call_deferred("_spawn_asteroids", asteroid_type_lookup[type]["child_type"], location, direction)
 	$sfx/AsteroidExplosionStream.play()

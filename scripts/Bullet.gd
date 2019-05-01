@@ -6,12 +6,16 @@ onready var screen_size = get_viewport_rect().size
 const screen_buffer = 8
 
 func _ready():
+	$CollisionShape2D.disabled = true
 	hide()
+	
 
 func start(pos: Vector2, rot: float):
 	rotation = rot
 	position = pos
 	velocity = Vector2(speed, 0).rotated(rotation)
+	$CollisionShape2D.disabled = false
+	show()
 	
 func _physics_process(delta: float):
 	move_and_collide(velocity * delta)
